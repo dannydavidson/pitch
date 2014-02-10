@@ -1,4 +1,4 @@
 pitch
 =====
 
-Realtime resume in Meteor
+Realtime resumé in Meteor
