@@ -36,21 +36,18 @@ if ( Meteor.isClient ) {
 	enquire.register( "screen and (max-width: 767px)", {
 		match: function () {
 			Session.set( 'numColumns', 1 );
-			setHeights = false;
 		}
 	} )
 
-	.register( "screen and (min-width: 768px) and (max-width: 1024px)", {
+	.register( "screen and (min-width: 768px) and (max-width: 1200px)", {
 		match: function () {
 			Session.set( 'numColumns', 2 );
-			setHeights = true;
 		}
 	} )
 
-	.register( "screen and (min-width: 1024px)", {
+	.register( "screen and (min-width: 1200px)", {
 		match: function () {
 			Session.set( 'numColumns', 3 );
-			setHeights = true;
 		}
 	} );
 
