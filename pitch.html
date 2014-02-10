@@ -1,0 +1,98 @@
+<head>
+  <title>Danny Davidson</title>
+  <meta
+    name="viewport"
+    content="
+      minimal-ui=true,
+      width=device-width,
+      initial-scale=1,
+      minimum-scale=1,
+      maximum-scale=1
+    "
+  />
+</head>
+
+<body>
+  {{> header}}
+  <section>
+    {{> gigs}}
+  </section>
+  <section>
+    {{> projects}}
+  </section>
+</body>
+
+<template name="gigs">
+  <div class="gigs">
+    {{#each rows}}
+      {{> gigRow}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="gigRow">
+  <div class="row gigRow">
+    {{#each this}}
+      {{> gig}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="gig">
+    <div class="content gig mobile-grid-100 tablet-grid-50 grid-33">
+
+        <h3>{{title}}</h3>
+
+        <div class="meta">
+          <span class="org">
+            <span class="company">{{company}}</span>
+            <span class="location">{{location}}</span>
+          </span>
+          <div class="timespan">{{start_date}} - {{end_date}}</div>
+        </div>
+
+        {{#isActive 'description'}}
+        <p class="panel description">{{{description}}}</p>
+        {{/isActive}}
+
+        {{#isActive 'tech'}}
+        <ul class="panel stacks">
+          {{#each stacks}}
+            <li>
+              <h4>{{name}}</h4>
+              {{#if description}}
+                <p>{{{description}}}</p>
+              {{/if}}
+            </li>
+          {{/each}}
+        </ul>
+        {{/isActive}}
+
+        {{#isActive 'lessons'}}
+        <div class="panel lessons">
+          <h4>Lessons learned</h4>
+          <p class="lessons">
+            {{{learnings}}}
+          </p>
+        </div>
+        {{/isActive}}
+
+        <div class="controls">
+          <span class="description {{#isActive 'description'}}selected{{/isActive}}">Summary</span>
+          {{#if stacks}}
+          <span class="tech {{#isActive 'tech'}}selected{{/isActive}}">Tech</span>
+          {{/if}}
+          {{#if learnings}}
+          <span class="lessons {{#isActive 'lessons'}}selected{{/isActive}}">Lessons Learned</span>
+          {{/if}}
+        </div>
+    </div>
+</template>
+
+<template name="projects">
+
+</template>
+
+<template name="header">
+
+</template>

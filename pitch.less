@@ -1,0 +1,171 @@
+@import 'lib/elements.lessimport';
+
+@font-face {
+    font-family: 'MuseoSlab500Regular';
+    src: url('/fonts/Museo_Slab_500-webfont.eot');
+    src: url('/fonts/Museo_Slab_500-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/Museo_Slab_500-webfont.woff') format('woff'),
+         url('/fonts/Museo_Slab_500-webfont.ttf') format('truetype'),
+         url('/fonts/Museo_Slab_500-webfont.svg#MuseoSlab500Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@content-margin: 10px;
+@element-margin: @content-margin / 2 * 1.5;
+@text-padding: @element-margin / 2 * 1.75;
+
+@heading-size: 26px;
+@heading-font: "MuseoSlab500Regular";
+@body-font: "MuseoSlab500Regular", Helevetica, Arial;
+
+@color_primary: #122430;
+@color_secondary: #273E45;
+@color_tertiary: #FFFCE2;
+@color_quaternary: #EBD2B5;
+@color_quinary: #E63531;
+
+@color_white: #FFF;
+
+@body-color: @color_quaternary;
+
+body {
+	font-family: @body-font;
+	background: @body-color;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: @heading-font;
+}
+
+.row {
+	float: left;
+	margin: @content-margin @content-margin 0 @content-margin;
+	.drop-shadow(0, 0, 5px, 0.4);
+	.rounded(2px);
+
+	&:last-child {
+		margin-bottom: @content-margin;
+	};
+}
+
+.content {
+	border-left: 1px solid @body-color;
+	margin: 0;
+	overflow: hidden;
+	position: relative;
+
+	h3 {
+		font-size: @heading-size;
+		line-height: @heading-size * 1.2;
+		padding: @element-margin;
+	}
+
+	p {
+		padding: @element-margin;
+		font-size: @heading-size * .6;
+		line-height: @heading-size * .8;
+		color: @color_primary;
+	}
+
+	&:last-child {
+		border-right: none;
+	}
+
+	&:first-child {
+		border-left: none;
+	}
+
+	.controls {
+		display: table;
+		border-collapse: collapse;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		width: 100%;
+
+		span {
+			display: table-cell;
+			text-align: center;
+			line-height: @heading-font;
+			padding: @text-padding * 2;
+			background: @color_white;
+			color: @color_primary;
+			.drop-shadow(0, -2px, 5px, 0.1);
+			border-bottom: @text-padding solid @color_primary;
+			vertical-align: middle;
+
+
+			&.selected {
+				background: @color_primary;
+				color: @color_white;
+				border-bottom: @text-padding solid @color_secondary;
+			}
+		}
+
+	}
+}
+
+.gigs {
+
+	.gigRow {
+		background: @color_tertiary;
+	}
+
+	.gig {
+
+		.timespan {
+			text-align: center;
+			background: @color_secondary;
+			color: @color_white;
+			line-height: @heading-font;
+			padding: @text-padding;
+		}
+
+		.org {
+			display: table;
+			width: 100%;
+			background: @color_primary;
+			border-collapse: collapse;
+			.drop-shadow(0, 3px, 5px, 0.6);
+		}
+
+		.company,
+		.location {
+			width: 50%;
+			display: table-cell;
+			text-align: center;
+			line-height: @heading-font;
+			padding: @text-padding;
+		}
+
+		.company {
+			color: @color_quinary;
+		}
+
+		.location {
+			border-left: 1px solid @color_secondary;
+			color: @color_white;
+		}
+
+		h3 {
+			background: @color_white;
+			color: @color_primary;
+		}
+	}
+}
+
+.meta {
+	font-family: @body-font;
+}
+
+@media screen and (max-width: 767px) {
+	h3 {
+		font-size: @heading-size * .75 !important;
+	}
+
+	.panel {
+		min-height: 400px;
+	}
+}
