@@ -43,7 +43,7 @@
 </template>
 
 <template name="gig">
-    <div class="content gig mobile-grid-100 tablet-grid-50 grid-33">
+    <div class="content gig mobile-grid-100 tablet-grid-50 grid-33" data-id="{{_id}}" data-stateId="{{stateId}}">
 
         <h3>{{title}}</h3>
 
@@ -55,12 +55,12 @@
           <div class="timespan">{{start_date}} - {{end_date}}</div>
         </div>
 
-        {{#isActive 'description'}}
-        <p class="panel description">{{{description}}}</p>
-        {{/isActive}}
+        <p class="panel description {{#isActive 'description'}}active{{/isActive}}">
+          {{{description}}}
+        </p>
 
-        {{#isActive 'tech'}}
-        <ul class="panel stacks">
+
+        <ul class="panel tech {{#isActive 'tech'}}active{{/isActive}}">
           {{#each stacks}}
             <li>
               <h4>{{name}}</h4>
@@ -70,16 +70,14 @@
             </li>
           {{/each}}
         </ul>
-        {{/isActive}}
 
-        {{#isActive 'lessons'}}
-        <div class="panel lessons">
+
+        <div class="panel lessons {{#isActive 'lessons'}}active{{/isActive}}}}">
           <h4>Lessons learned</h4>
           <p class="lessons">
             {{{learnings}}}
           </p>
         </div>
-        {{/isActive}}
 
         <div class="controls">
           <span class="description {{#isActive 'description'}}selected{{/isActive}}">Summary</span>
