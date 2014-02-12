@@ -19,6 +19,9 @@
 <body>
   {{> header}}
   <section>
+    {{> intro}}
+  </section>
+  <section>
     {{> gigs}}
   </section>
   <section>
@@ -96,5 +99,16 @@
 </template>
 
 <template name="header">
+  {{loginButtons}}
+  <ul>
+  {{#each connected}}
+    <li>
+      {{user}}
+    </li>
+  {{/each}}
+  </ul>
+</template>
+
+<template name="intro">
 
 </template>
