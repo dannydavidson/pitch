@@ -98,6 +98,7 @@ section {
 		left: 0;
 		right: 0;
 		width: 100%;
+		cursor: pointer;
 
 		span {
 			display: table-cell;
@@ -128,14 +129,6 @@ section {
 
 	.gig {
 
-		.timespan {
-			text-align: center;
-			background: @color_secondary;
-			color: @color_white;
-			line-height: @heading-font;
-			padding: @text-padding;
-		}
-
 		.org {
 			display: table;
 			width: 100%;
@@ -145,10 +138,12 @@ section {
 		}
 
 		.company,
-		.location {
-			width: 50%;
+		.location,
+		.timespan {
+			width: 33%;
 			display: table-cell;
 			text-align: center;
+			vertical-align: middle;
 			line-height: @heading-font;
 			padding: @text-padding;
 		}
@@ -160,6 +155,12 @@ section {
 		.location {
 			border-left: 1px solid @color_secondary;
 			color: @color_white;
+			background-color: @color_secondary;
+		}
+
+		.timespan {
+			border-left: 1px solid @color_secondary;
+			color: white;
 		}
 
 		h3 {
