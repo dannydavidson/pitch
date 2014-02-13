@@ -51,7 +51,7 @@
 
         <div class="meta">
           <span class="org">
-            <span class="company">{{company}}</span>
+            <span class="company"><a href="{{url}}" target="_blank">{{company}}</a></span>
             <span class="location">{{location}}</span>
             <span class="timespan">{{start_date}} - {{end_date}}</span>
 
@@ -130,7 +130,15 @@
   <div class="content education mobile-grid-100 tablet-grid-33 grid-33">
     <h2>Education</h2>
     <div>
-
+      <h3>{{education.title}}</h3>
+      <span>{{education.year}}</span>
+      <ul>
+        {{#each education.degrees}}
+          <li>
+            <span>{{name}}</span>, {{area}}
+          </li>
+        {{/each}}
+      </ul>
     </div>
   </div>
 

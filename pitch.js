@@ -3,6 +3,7 @@ db = {};
 db.session = new Meteor.Collection( 'session' );
 db.gigs = new Meteor.Collection( 'gigs' );
 db.gigstate = new Meteor.Collection( 'gigstate' );
+db.education = new Meteor.Collection( 'education' );
 
 // define streams
 streams = {};
@@ -103,9 +104,11 @@ if ( Meteor.isClient ) {
 	} );
 
 	// subscribe to collections
-	Meteor.subscribe( 'gigs' );
-
-	Meteor.subscribe( 'gigstate' );
+	Meteor.autosubscribe( function ( ) {
+		Meteor.subscribe( 'gigs' );
+		Meteor.subscribe( 'gigstate' );
+		Meteor.subscribe( 'education' );
+	} );
 
 	// Adjust content height on resize
 	$( window ).resize( pitch.setContentHeight );
@@ -178,6 +181,12 @@ if ( Meteor.isClient ) {
 			} );
 		}
 	} );
+
+	Template.education.education = function ( ) {
+		return db.education.findOne( {
+			default: true
+		} );
+	}
 
 	Template.header.connected = function ( ) {
 		console.log( 'connected update' );
@@ -270,6 +279,12 @@ if ( Meteor.isServer ) {
 			name: 'default'
 		} );
 
+		// reset education
+		db.education.remove( {} );
+		_( education ).each( function ( edu ) {
+			db.education.insert( edu );
+		} );
+
 		// publish records
 		Meteor.publish( 'gigs', function ( ) {
 			return db.gigs.find( {} );
@@ -277,6 +292,10 @@ if ( Meteor.isServer ) {
 
 		Meteor.publish( 'gigstate', function ( ) {
 			return db.gigstate.find( {} );
+		} );
+
+		Meteor.publish( 'education', function ( ) {
+			return db.education.find( {} );
 		} );
 
 		Meteor.publish( 'userData', function ( config ) {
