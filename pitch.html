@@ -3,7 +3,6 @@
   <meta
     name="viewport"
     content="
-      minimal-ui=true,
       width=device-width,
       initial-scale=1,
       minimum-scale=1,
@@ -104,12 +103,35 @@
   <ul>
   {{#each connected}}
     <li>
-      {{user}}
+      {{username}}
     </li>
   {{/each}}
   </ul>
 </template>
 
 <template name="intro">
+  <div class="row intro">
+    {{> objective}}
+    {{> education}}
+  </div>
+</template>
+
+<template name="objective">
+  <div class="content objective mobile-grid-100 tablet-grid-66 grid-66">
+    <div class="wrapper">
+      <h2>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, ex soluta debitis sed eaque quaerat rerum animi facilis ad dolorem. Ratione, ad dolore eius accusamus! Velit, corporis aut quasi explicabo!
+      </h2>
+    </div>
+  </div>
+</template>
+
+<template name="education">
+  <div class="content education mobile-grid-100 tablet-grid-33 grid-33">
+    <h2>Education</h2>
+    <div>
+
+    </div>
+  </div>
 
 </template>

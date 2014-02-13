@@ -16,6 +16,9 @@
 @text-padding: @element-margin / 2 * 1.75;
 
 @heading-size: 26px;
+@heading-height: @heading-size * 1.2;
+@marquee-title-size: 36px;
+
 @heading-font: "MuseoSlab500Regular";
 @body-font: "MuseoSlab500Regular", Helevetica, Arial;
 
@@ -55,6 +58,37 @@ section {
 	};
 }
 
+.intro {
+
+	.objective {
+		display: table;
+		padding: 20px;
+		background: @color_secondary;
+		.box-sizing(padding-box);
+
+		.wrapper {
+			display: table-cell;
+			font-size: @marquee-title-size;
+			color: @color_primary;
+			background: @color_tertiary;
+			margin: 20px;
+			vertical-align: middle;
+
+			h2 {
+				text-align: center;
+				margin: 30px;
+			}
+		}
+	}
+
+	.education {
+		border-left: 1px solid @color_primary;
+		background: @color_secondary;
+
+	}
+
+}
+
 .content {
 	border-left: 1px solid @body-color;
 	margin: 0;
@@ -63,7 +97,7 @@ section {
 
 	h3 {
 		font-size: @heading-size;
-		line-height: @heading-size * 1.2;
+		line-height: @heading-height;
 		padding: @element-margin;
 	}
 
@@ -177,6 +211,7 @@ section {
 @media screen and (max-width: 767px) {
 	h3 {
 		font-size: @heading-size * .75 !important;
+		line-height: @heading-height * .75 !important;
 	}
 
 	.panel {

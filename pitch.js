@@ -10,10 +10,10 @@ streams.presence = new Meteor.Stream( 'presence' );
 
 // namespace for shared methods
 pitch = {
-	pingInterval: 1 * 2000,
+	pingInterval: 1 * 3000,
 	cleanupCoefficient: 2,
-	numFailedPingsAllowed: 2
-}
+	numFailedPingsAllowed: 1
+};
 
 if ( Meteor.isClient ) {
 
@@ -33,23 +33,40 @@ if ( Meteor.isClient ) {
 			}
 		},
 		handleAdd: function ( message ) {
-			var connected = db.connected.find( {} ).map( function ( conn ) {
-				return conn.user;
-			} );
-			_( connected ).chain( ).difference( message.clients ).map( function ( userId ) {
-				db.connected.insert( {
-					user: userId
-				} );
-			} )
 			db.connected.insert( {
 				user: message.added
 			} );
+			pitch.mergeConnections( message.clients );
 		},
 		handleDisconnect: function ( message ) {
-			console.log( message );
+			//console.log( message );
 			db.connected.remove( {
 				user: message.removed
 			} );
+			pitch.resubscribeUsers( );
+		},
+		mergeConnections: function ( userIds ) {
+			var connected = db.connected.find( {} ).map( function ( conn ) {
+				return conn.user;
+			} );
+			_( userIds ).chain( ).difference( connected ).map( function ( userId ) {
+				db.connected.insert( {
+					user: userId
+				} );
+			} );
+			pitch.resubscribeUsers( );
+		},
+		resubscribeUsers: function ( ) {
+			// update subscription
+
+			pitch.userHandle = Meteor.subscribe( 'userData', {
+				clients: db.connected.find( {} ).map( function ( conn ) {
+					return conn.user;
+				} )
+			} )
+		},
+		adjustContentHeaders: function ( ) {
+
 		}
 	} );
 
@@ -86,13 +103,9 @@ if ( Meteor.isClient ) {
 	} );
 
 	// subscribe to collections
-	Meteor.subscribe( 'gigs', function ( ) {
+	Meteor.subscribe( 'gigs' );
 
-	} );
-
-	Meteor.subscribe( 'gigstate', function ( ) {
-
-	} );
+	Meteor.subscribe( 'gigstate' );
 
 	// Adjust content height on resize
 	$( window ).resize( pitch.setContentHeight );
@@ -168,7 +181,11 @@ if ( Meteor.isClient ) {
 
 	Template.header.connected = function ( ) {
 		console.log( 'connected update' );
-		return db.connected.find( {} ).fetch( );
+		return _( db.connected.find( {} ).fetch( ) ).chain( ).uniq( function ( conn ) {
+			return conn.user;
+		} ).map( function ( conn ) {
+			return Meteor.users.findOne( conn.user );
+		} ).value( );
 	}
 
 	// set active panel for each item by reacting to changes
@@ -193,7 +210,7 @@ if ( Meteor.isClient ) {
 
 	} );
 
-	// start ping interval once logged in
+	// maintain presence once logged in
 	Meteor.autorun( function ( ) {
 		var handle,
 			user = Meteor.user( );
@@ -203,12 +220,22 @@ if ( Meteor.isClient ) {
 			handle = Meteor.setInterval( function ( ) {
 				streams.presence.emit( 'ping', Meteor.userId( ) );
 			}, pitch.pingInterval );
+			streams.presence.emit( 'ping', Meteor.userId( ) );
 
 			// handle presence events
 			streams.presence.on( 'drop', pitch.handleDisconnect );
 			streams.presence.on( 'disconnect', pitch.handleDisconnect );
 			streams.presence.on( 'add', pitch.handleAdd );
+
+			// get connected client list from server
+			Meteor.call( 'getConnected', function ( err, result ) {
+				pitch.mergeConnections( result );
+			} );
+
 		} else {
+			// stop loading users
+			pitch.userHandle.stop( );
+			// stop ping interval
 			Meteor.clearInterval( handle );
 		}
 	} );
@@ -252,6 +279,15 @@ if ( Meteor.isServer ) {
 			return db.gigstate.find( {} );
 		} );
 
+		Meteor.publish( 'userData', function ( config ) {
+			return Meteor.users.find( {
+				_id: {
+					$in: config.clients
+				}
+			} );
+		} );
+
+
 	} );
 
 	// broadcast disconnects
@@ -292,6 +328,8 @@ if ( Meteor.isServer ) {
 
 	} );
 
+	// define cleanup interval to expire connections that have dropped
+	// without disconnecting
 	Meteor.setInterval( function ( ) {
 		var now = new Date( ).getTime( );
 
@@ -309,4 +347,14 @@ if ( Meteor.isServer ) {
 		} ).compact( ).value( );
 
 	}, pitch.pingInterval * pitch.cleanupCoefficient );
+
+	// define methods
+	Meteor.methods( {
+		getConnected: function ( ) {
+			return _( clients ).map( function ( client ) {
+				return client[ 0 ];
+			} )
+		}
+	} );
+
 }
