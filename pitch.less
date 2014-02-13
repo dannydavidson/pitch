@@ -98,6 +98,8 @@ section {
 		font-size: @heading-size;
 		line-height: @heading-height;
 		padding: @element-margin;
+		.user-select(none);
+		cursor: pointer;
 	}
 
 	p {
@@ -143,6 +145,7 @@ section {
 			border-bottom: @text-padding solid @color_primary;
 			vertical-align: middle;
 			.drop-shadow(0, -2px, 5px, 0.1);
+			.user-select(none);
 
 			&.selected {
 				background: @color_primary;
