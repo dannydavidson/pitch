@@ -99,14 +99,19 @@
 </template>
 
 <template name="header">
-  {{loginButtons}}
-  <ul>
-  {{#each connected}}
-    <li>
-      {{username}}
-    </li>
-  {{/each}}
-  </ul>
+  <div class="header">
+    <h1>{{brand}}</h1>
+    <ul>
+    {{#each connected}}
+      <li class="connected-user">
+        {{username}}
+      </li>
+    {{/each}}
+    </ul>
+    <div class="signin">
+      {{loginButtons align="right"}}
+    </div>
+  </div>
 </template>
 
 <template name="intro">
@@ -119,6 +124,7 @@
 <template name="objective">
   <div class="content objective mobile-grid-100 tablet-grid-66 grid-66">
     <div class="wrapper">
+      <h3>Objective</h3>
       <h2>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, ex soluta debitis sed eaque quaerat rerum animi facilis ad dolorem. Ratione, ad dolore eius accusamus! Velit, corporis aut quasi explicabo!
       </h2>
@@ -128,10 +134,12 @@
 
 <template name="education">
   <div class="content education mobile-grid-100 tablet-grid-33 grid-33">
-    <h2>Education</h2>
+    <h3>Education</h3>
     <div>
-      <h3>{{education.title}}</h3>
-      <span>{{education.year}}</span>
+      <div class="school">
+        <h4>{{education.title}}</h4>
+        <span>{{education.year}}</span>
+      </div>
       <ul>
         {{#each education.degrees}}
           <li>

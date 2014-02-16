@@ -1,4 +1,5 @@
 @import 'lib/elements.lessimport';
+@import 'lib/flex.lessimport';
 
 @font-face {
     font-family: 'MuseoSlab500Regular';
@@ -17,6 +18,7 @@
 
 @heading-size: 26px;
 @heading-height: @heading-size * 1.2;
+@header-height: @heading-height * 1.2;
 @marquee-title-size: 36px;
 
 @heading-font: "MuseoSlab500Regular";
@@ -72,7 +74,13 @@ section {
 			padding: 20px 0;
 			vertical-align: middle;
 
+			h3 {
+				text-align: center;
+				color: @color_white;
+			}
+
 			h2 {
+				.inner-shadow(-2px, 0, 5px, 0.6);
 				background: @color_white;
 				text-align: center;
 				padding: 30px 20px;
@@ -84,17 +92,18 @@ section {
 		border-left: 1px solid @color_primary;
 		background: @color_secondary;
 
-		h2 {
+		h3 {
 			text-align: center;
 			color: @color_white;
 			font-size: @heading-size;
 		}
 
-		h3 {
+		.school {
 			text-align: center;
 			background: @color_white;
 			padding: 10px;
 			margin: @content-margin;
+			.inner-shadow(0, 0, 5px, 0.6);
 		}
 
 	}
@@ -224,10 +233,60 @@ section {
 	font-family: @body-font;
 }
 
+.header {
+	position: fixed;
+	display: flex;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: @color_primary;
+	z-index: 10;
+	line-height: @heading-height * 1.2;
+
+	h1 {
+		font-size: @heading-size;
+		color: @color_white;
+		margin-left: @content-margin;
+		flex: 2;
+		overflow: hidden;
+	}
+
+	ul {
+		flex: 2;
+	}
+
+	.signin {
+		flex: 1;
+		text-align: right;
+		margin-right: @content-margin;
+	}
+
+	.connected-user {
+		max-width: 60px;
+		text-align: center;
+		background: @color_quinary;
+		padding: 0 10px;
+		list-style: none;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.login-link-text {
+		color: @color_white;
+	}
+}
+
 @media screen and (max-width: 767px) {
 	h3 {
 		font-size: @heading-size * .75 !important;
 		line-height: @heading-height * .75 !important;
+	}
+
+	.header {
+		h1 {
+			flex: 1;
+		}
 	}
 
 	.panel {
