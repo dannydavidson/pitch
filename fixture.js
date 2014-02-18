@@ -59,7 +59,7 @@ gigs = [
 		title: 'Served as Senior Lead Developer on Verizon',
 		start_date: '6/10',
 		end_date: '5/11',
-		company: 'McGarryBowen',
+		company: 'mcgarrybowen',
 		url: 'http://www.mcgarrybowen.com/en',
 		location: 'NYC',
 		description: "Most of my time here was spent putting out fires caused by poor creative leadership &amp; a schizophrenic client. My main highlight was a scavenger-hunt sweepstakes site we built in 3 weeks for the launch of a Star Wars phone. I wrote a Django RESTful service &amp; custom CMS to enable the project's producers to manage the revealing of clues &amp; verify contest winners. The Star Wars nerds tried, but we successfully secured our 6-node server cluster and remained unhacked.",
@@ -95,7 +95,7 @@ gigs = [
 		],
 		learnings: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, maxime, quia, aut fugit possimus eius deleniti dolor illum ex ut ab recusandae excepturi maiores quos repudiandae nostrum cumque harum ratione.'
 	}
-];
+ ];
 
 education = [
 	{
@@ -113,7 +113,7 @@ education = [
 			}
 		]
 	}
-];
+ ];
 
 objective = {
 	key: 'default',

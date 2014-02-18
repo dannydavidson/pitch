@@ -84,30 +84,33 @@
 
           </span>
         </div>
+        <div class="detail-content">
 
-        <p class="panel description {{#isActive 'description'}}active{{/isActive}}">
-          {{{description}}}
-        </p>
-
-
-        <ul class="panel tech {{#isActive 'tech'}}active{{/isActive}}">
-          {{#each stacks}}
-            <li>
-              <h4>{{#if url}}<a href="{{url}}" target="_blank">{{name}}</a>{{else}}{{name}}{{/if}}</h4>
-              {{#if description}}
-                <p>{{{description}}}</p>
-              {{/if}}
-            </li>
-          {{/each}}
-        </ul>
-
-
-        <div class="panel lessons {{#isActive 'lessons'}}active{{/isActive}}}}">
-          <h4>Lessons learned</h4>
-          <p class="lessons">
-            {{{learnings}}}
+          <p class="panel description {{#isActive 'description'}}active{{/isActive}}">
+            {{{description}}}
           </p>
-        </div>
+
+
+          <ul class="panel tech {{#isActive 'tech'}}active{{/isActive}}">
+            {{#each stacks}}
+              <li>
+                <h4>{{#if url}}<a href="{{url}}" target="_blank">{{name}}</a>{{else}}{{name}}{{/if}}</h4>
+                {{#if description}}
+                  <p>{{{description}}}</p>
+                {{/if}}
+              </li>
+            {{/each}}
+          </ul>
+
+
+          <div class="panel lessons {{#isActive 'lessons'}}active{{/isActive}}}}">
+            <h4>Lessons learned</h4>
+            <p class="lessons">
+              {{{learnings}}}
+            </p>
+          </div>
+
+      </div>
 
         <div class="controls">
           <span class="description {{#isActive 'description'}}selected{{/isActive}}">Summary</span>
@@ -115,7 +118,7 @@
           <span class="tech {{#isActive 'tech'}}selected{{/isActive}}">Tech</span>
           {{/if}}
           {{#if learnings}}
-          <span class="lessons {{#isActive 'lessons'}}selected{{/isActive}}">Lessons Learned</span>
+          <span class="lessons {{#isActive 'lessons'}}selected{{/isActive}}">Lessons</span>
           {{/if}}
         </div>
     </div>
