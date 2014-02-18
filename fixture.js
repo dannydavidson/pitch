@@ -6,14 +6,18 @@ gigs = [
 		company: 'Sports195',
 		url: 'http://www.sports195.com',
 		location: 'NYC, Austin',
-		description: "Sport195 is a NYC start-up building a global social network for sports.  We're using Rendr, a front-to-back-end javascript framework by Airbnb, to create a mobile-optimized, SEO-friendly web app as part of Sport195's global launch.",
+		description: "Sports195 is a start-up out of NYC building a global social network for sports.  We've used <a href='https://github.com/airbnb/rendr'>Rendr</a>, a Backbone + Express polymorphic javascript framework from Airbnb, to create a mobile-first, SEO-friendly web app as part of Sport195's global launch.",
 		stacks: [
 			{
 				name: 'Rendr',
-				description: 'A polymorphic framework'
+				description: 'Backbone + Express'
+			},
+			{
+				name: 'Neo4j',
+				description: 'First-in-class graph database'
 			}
 		],
-		learnings: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, maxime, quia, aut fugit possimus eius deleniti dolor illum ex ut ab recusandae excepturi maiores quos repudiandae nostrum cumque harum ratione.'
+		learnings: 'Both the hurdles and the awesome potential of polymorphic javascript frameworks for simplifying web development.'
 	},
 	{
 		title: 'Built Rapid Web Prototyping Tools',
@@ -26,15 +30,17 @@ gigs = [
 		stacks: [
 			{
 				name: 'Meteor',
-				description: 'A polymorphic framework'
+				description: 'Reactive, realtime polymorphic javascript framework.',
+				url: 'http://meteor.com'
 			},
 			{
 				name: 'Supervisord',
-				description: 'A polymorphic framework'
+				description: 'Process Management',
+				url: ''
 			},
 			{
-				name: 'ZeromMQ',
-				description: 'A polymorphic framework'
+				name: 'ZeroMQ',
+				description: 'Next-gen messaging framework'
 			}
 		],
 		learnings: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, maxime, quia, aut fugit possimus eius deleniti dolor illum ex ut ab recusandae excepturi maiores quos repudiandae nostrum cumque harum ratione.'
@@ -50,7 +56,7 @@ gigs = [
 		learnings: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, maxime, quia, aut fugit possimus eius deleniti dolor illum ex ut ab recusandae excepturi maiores quos repudiandae nostrum cumque harum ratione.'
 	},
 	{
-		title: 'Served as Senior Lead Developer on Verizons',
+		title: 'Served as Senior Lead Developer on Verizon',
 		start_date: '6/10',
 		end_date: '5/11',
 		company: 'McGarryBowen',
@@ -88,26 +94,6 @@ gigs = [
 			},
 		],
 		learnings: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, maxime, quia, aut fugit possimus eius deleniti dolor illum ex ut ab recusandae excepturi maiores quos repudiandae nostrum cumque harum ratione.'
-	},
-	{
-		title: 'Built a Translation Management System for UPS',
-		start_date: '6/09',
-		end_date: '12/09',
-		company: 'T3',
-		url: 'http://www.t-3.com',
-		location: 'Austin, TX',
-		description: "Over 5 months with the help of a Django contractor, I designed &amp; built a translation management application for UPS website banners that gave translators a workflow queue with manager approval steps. Translators could live-edit new banners &amp; immediately QA the content in the Flash module. Our internal client could plan out separate messaging deployments &amp; generate deployment tarballs to be loaded directly into their CMS.",
-		stacks: [
-			{
-				name: 'Django',
-				description: ''
-			},
-			{
-				name: 'Twitter API',
-				description: ''
-			},
-		],
-		learnings: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, maxime, quia, aut fugit possimus eius deleniti dolor illum ex ut ab recusandae excepturi maiores quos repudiandae nostrum cumque harum ratione.'
 	}
 ];
 
@@ -128,3 +114,8 @@ education = [
 		]
 	}
 ];
+
+objective = {
+	key: 'default',
+	description: "To build a creative workflow around the newest crop of web technologies."
+}

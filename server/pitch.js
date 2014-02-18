@@ -1,26 +1,6 @@
-// publish records
-Meteor.publish( 'gigs', function ( ) {
-	console.log( 'gigs' );
-	return Meteor.db.gigs.find( {} );
-} );
-
-Meteor.publish( 'states', function ( ) {
-	return Meteor.db.states.find( {} );
-} );
-
-Meteor.publish( 'education', function ( ) {
-	return Meteor.db.education.find( {} );
-} );
-
-Meteor.publish( 'userData', function ( config ) {
-	return Meteor.users.find( {
-		_id: {
-			$in: config.clients
-		}
-	} );
-} );
-
 Meteor.startup( function ( ) {
+
+	var objectiveId;
 
 	// reset gigs
 	Meteor.db.gigs.remove( {} );
@@ -38,18 +18,65 @@ Meteor.startup( function ( ) {
 		} ) );
 	} );
 
-	// reset session
-	Meteor.db.session.remove( {} );
-	Meteor.db.session.insert( {
-		name: 'default'
-	} );
-
 	// reset education
 	Meteor.db.education.remove( {} );
 	_( education ).each( function ( edu ) {
 		Meteor.db.education.insert( edu );
 	} );
 
+	// reset objective
+	Meteor.db.objective.remove( {} );
+	objectiveId = Meteor.db.objective.insert( objective );
+
+	// reset session
+	Meteor.db.session.remove( {} );
+	Meteor.db.session.insert( {
+		key: 'default',
+		active: {
+			collection: 'objective',
+			id: objectiveId
+		}
+	} );
+
+	// publish records
+	Meteor.publish( 'gigs', function ( ) {
+		return Meteor.db.gigs.find( {} );
+	} );
+
+	Meteor.publish( 'projects', function ( ) {
+		return Meteor.db.projects.find( {} );
+	} );
+
+	Meteor.publish( 'states', function ( ) {
+		return Meteor.db.states.find( {} );
+	} );
+
+	Meteor.publish( 'education', function ( ) {
+		return Meteor.db.education.find( {} );
+	} );
+
+	Meteor.publish( 'objective', function ( ) {
+		return Meteor.db.objective.find( {
+			key: 'default'
+		} );
+	} )
+
+	Meteor.publish( 'userData', function ( config ) {
+		return Meteor.users.find( {
+			_id: {
+				$in: config.clients
+			}
+		} );
+	} );
+
+	Meteor.publish( 'session', function ( key ) {
+		return Meteor.db.session.find( {
+			key: key
+		} );
+	} );
+
+
+	/*
 	// broadcast disconnects
 	var clients = [ ];
 	Meteor.streams.presence.on( 'ping', function ( ) {
@@ -117,5 +144,6 @@ Meteor.startup( function ( ) {
 		}
 	} );
 
+*/
 
 } );

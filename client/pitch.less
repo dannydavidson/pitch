@@ -44,6 +44,10 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: @heading-font;
 }
 
+a {
+	color: @color_quinary;
+}
+
 section {
 	margin: 0 auto;
 	max-width: 1500px;
@@ -66,6 +70,12 @@ section {
 		display: table;
 		background: @color_secondary;
 		.box-sizing(padding-box);
+
+		&.active {
+			h2 {
+				background: #C0E8F5 !important;
+			}
+		}
 
 		.wrapper {
 			display: table-cell;
@@ -91,6 +101,12 @@ section {
 	.education {
 		border-left: 1px solid @color_primary;
 		background: @color_secondary;
+
+		&.active {
+			.school {
+				background: #C0E8F5 !important;
+			}
+		}
 
 		h3 {
 			text-align: center;
@@ -187,6 +203,12 @@ section {
 
 	.gig {
 
+		&.active {
+			h3 {
+				background: #C0E8F5 !important;
+			}
+		}
+
 		.org {
 			display: table;
 			width: 100%;
@@ -226,6 +248,38 @@ section {
 			background: @color_white;
 			color: @color_primary;
 		}
+
+		.panel.tech {
+			margin: @content-margin;
+			.drop-shadow(0, 0, 5px, 0.4);
+
+			li {
+				padding: @content-margin;
+				background: @color_white;
+				text-align: center;
+				border-left: 1px solid @color_primary;
+				border-right: 1px solid @color_primary;
+				border-top: 1px solid @color_primary;
+
+				&:last-child {
+					border-bottom: 1px solid @color_primary;
+				}
+
+				h4 {
+					font-size: @heading-size;
+				}
+			}
+		}
+
+		.panel.description {
+			background: @color_white;
+			color: @color_primary;
+			margin: @content-margin;
+			padding: @content-margin * 2;
+			text-align: center;
+			.drop-shadow(0, 0, 5px, 0.4);
+
+		}
 	}
 }
 
@@ -235,33 +289,76 @@ section {
 
 .header {
 	position: fixed;
-	display: flex;
 	top: 0;
 	left: 0;
 	right: 0;
 	background: @color_primary;
 	z-index: 10;
-	line-height: @heading-height * 1.2;
+	height: @heading-height * 1.2;
 
 	h1 {
+		float: left;
 		font-size: @heading-size;
 		color: @color_white;
-		margin-left: @content-margin;
-		flex: 2;
+		margin: 0 @content-margin;
+		cursor: pointer;
 		overflow: hidden;
 	}
 
-	ul {
-		flex: 2;
+	ul li {
+		float: left;
+		line-height: @heading-height * 1.2;
+	}
+
+	.nav {
+		float: left;
+		padding: 0 @content-margin;
+
+		h2 {
+			display: inline-block;
+			padding: 0 @content-margin;
+			line-height: @heading-height * 1.2;
+			font-size: @heading-size * .8;
+			border-left: 1px solid @color_tertiary;
+			border-right: 1px solid @color_quaternary;
+			color: @color_white;
+			background: @color_secondary;
+		}
+
+		ul {
+			.border-radius(0, 5px, 5px, 0);
+			overflow: hidden;
+		}
+
+		li {
+			color: @color_white;
+			background: @color_primary;
+			text-align: center;
+			border-top: 1px solid @color_secondary;
+			display: block;
+			float: none;
+			padding: 0 @content-margin;
+
+			&:nth-child(2) {
+				border-top: 1px solid @color_tertiary;
+			}
+		}
+
+
+		li.active {
+			display: none;
+		}
+
 	}
 
 	.signin {
-		flex: 1;
+		float: right;
 		text-align: right;
 		margin-right: @content-margin;
 	}
 
 	.connected-user {
+		display: none;
 		max-width: 60px;
 		text-align: center;
 		background: @color_quinary;
@@ -274,6 +371,7 @@ section {
 
 	.login-link-text {
 		color: @color_white;
+		line-height: @heading-height * 1.2;
 	}
 }
 
@@ -281,16 +379,6 @@ section {
 	h3 {
 		font-size: @heading-size * .75 !important;
 		line-height: @heading-height * .75 !important;
-	}
-
-	.header {
-		h1 {
-			flex: 1;
-		}
-	}
-
-	.panel {
-		min-height: 400px;
 	}
 
 	.education {
