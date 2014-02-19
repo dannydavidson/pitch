@@ -148,19 +148,21 @@
 
 <template name="education">
   <div class="content education mobile-grid-100 tablet-grid-33 grid-33" data-collection="education" data-id="{{education._id}}">
-    <h3>Education</h3>
-    <div>
-      <div class="school">
-        <h4>{{education.title}}</h4>
-        <span>{{education.year}}</span>
+    <div class="wrapper">
+      <h3>Education</h3>
+      <div>
+        <div class="school">
+          <h4>{{education.title}}</h4>
+          <span>{{education.year}}</span>
+        </div>
+        <ul>
+          {{#each education.degrees}}
+            <li>
+              <div class="degree">{{name}}</div><div class="focus">{{area}}</div>
+            </li>
+          {{/each}}
+        </ul>
       </div>
-      <ul>
-        {{#each education.degrees}}
-          <li>
-            <span>{{name}}</span>, {{area}}
-          </li>
-        {{/each}}
-      </ul>
     </div>
   </div>
 

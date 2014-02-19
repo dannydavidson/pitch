@@ -87,10 +87,12 @@ section {
 			h3 {
 				text-align: center;
 				color: @color_white;
+				font-size: @heading-size * 1.2;
 			}
 
 			h2 {
-				.inner-shadow(-2px, 0, 5px, 0.6);
+				cursor: pointer;
+				.inner-shadow(0px, 0, 5px, 0.6);
 				background: @color_white;
 				text-align: center;
 				padding: 30px 20px;
@@ -99,6 +101,7 @@ section {
 	}
 
 	.education {
+		display: table;
 		border-left: 1px solid @color_primary;
 		background: @color_secondary;
 
@@ -108,18 +111,53 @@ section {
 			}
 		}
 
+		.wrapper {
+			display: table-cell;
+			vertical-align: middle;
+		}
+
 		h3 {
 			text-align: center;
 			color: @color_white;
-			font-size: @heading-size;
+			font-size: @heading-size * 1.2;
 		}
 
 		.school {
+			font-size: @heading-size * .9;
+			cursor: pointer;
 			text-align: center;
 			background: @color_white;
 			padding: 10px;
-			margin: @content-margin;
+			margin: @content-margin @content-margin (@content-margin * 3) @content-margin;
 			.inner-shadow(0, 0, 5px, 0.6);
+
+			h4 {
+				padding-bottom: @content-margin * .5
+			}
+
+			span {
+				display: inline-block;
+				border-top: 1px solid @color_primary;
+				font-size: @heading-size * 1.1;
+			}
+		}
+
+		li {
+			text-align: center;
+
+			div.degree {
+				color: @color_white;
+				margin: @content-margin 0 0 0;
+			}
+
+			div.focus {
+				display: inline-block;
+				color: @color_primary;
+				background: @color_white;
+				padding: 10px;
+				margin: (@content-margin * .75) 0 @content-margin 0;
+				.inner-shadow(0, 0, 5px, 0.6);
+			}
 		}
 
 	}
@@ -295,6 +333,7 @@ section {
 	background: @color_primary;
 	z-index: 10;
 	height: @heading-height * 1.2;
+	.drop-shadow(0, 0, 5px, 0.4);
 
 	h1 {
 		float: left;
@@ -308,11 +347,13 @@ section {
 	ul li {
 		float: left;
 		line-height: @heading-height * 1.2;
+		.drop-shadow(0, 0, 5px, 0.4);
 	}
 
 	.nav {
 		float: left;
 		padding: 0 @content-margin;
+		cursor: pointer;
 
 		h2 {
 			display: inline-block;
