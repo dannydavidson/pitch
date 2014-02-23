@@ -12,16 +12,22 @@
 
 <body>
   {{> header}}
-  <section>
-    {{> intro}}
-  </section>
-  <section>
-    {{> gigs}}
-  </section>
-  <section>
-    {{> projects}}
-  </section>
+  {{> main}}
 </body>
+
+<template name="main">
+  {{#if loaded}}
+    <section>
+      {{> intro}}
+    </section>
+    <section>
+      {{> gigs}}
+    </section>
+    <section>
+      {{> projects}}
+    </section>
+  {{/if}}
+</template>
 
 <template name="header">
   <div class="header">
@@ -44,13 +50,13 @@
 </template>
 
 <template name="nav">
-  <div class="nav" data-collection="{{sections.0.key}}" data-id="{{sections.0.id}}">
+  <div class="nav">
     <h2>{{sections.0.title}}</h2>
     {{#if isOpen}}
     <ul class="nav-sections">
       {{#if sections.1.title}}
         {{#each sections}}
-          <li class="{{#if active}}active{{/if}}" data-key="{{key}}">{{title}}</li>
+          <li data-key="{{key}}">{{title}}</li>
         {{/each}}
       {{/if}}
     </ul>
@@ -106,9 +112,9 @@
           </ul>
 
 
-          <div class="panel lessons {{#isActive 'lessons'}}active{{/isActive}}}}">
+          <div class="panel lessons {{#isActive 'lessons'}}active{{/isActive}}">
             <h4>Lessons learned</h4>
-            <p class="lessons">
+            <p>
               {{{learnings}}}
             </p>
           </div>
@@ -139,7 +145,7 @@
 </template>
 
 <template name="objective">
-  <div class="content objective mobile-grid-100 tablet-grid-66 grid-66" data-collection="objective" data-id="{{objective._id}}">
+  <div class="content objective mobile-grid-100 tablet-grid-66 grid-66 {{#if active}}active{{/if}}" data-collection="objective" data-id="{{objective._id}}">
     <div class="wrapper">
       <h3>Objective</h3>
       <h2>
@@ -150,7 +156,7 @@
 </template>
 
 <template name="education">
-  <div class="content education mobile-grid-100 tablet-grid-33 grid-33" data-collection="education" data-id="{{education._id}}">
+  <div class="content education mobile-grid-100 tablet-grid-33 grid-33 {{#if active}}active{{/if}}" data-collection="education" data-id="{{education._id}}">
     <div class="wrapper">
       <h3>Education</h3>
       <div>

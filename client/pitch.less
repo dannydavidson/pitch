@@ -55,9 +55,13 @@ section {
 
 .row {
 	float: left;
+	display: block;
+	width: ~"calc(100% - 20px)";
 	margin: @content-margin @content-margin 0 @content-margin;
 	.drop-shadow(0, 0, 5px, 0.4);
 	.rounded(2px);
+	.box-sizing(padding-box);
+
 
 	&:last-child {
 		margin-bottom: @content-margin;
@@ -128,7 +132,7 @@ section {
 			text-align: center;
 			background: @color_white;
 			padding: 10px;
-			margin: @content-margin @content-margin (@content-margin * 3) @content-margin;
+			margin: 0 @content-margin (@content-margin * 3) @content-margin;
 			.inner-shadow(0, 0, 5px, 0.6);
 
 			h4 {
@@ -241,6 +245,10 @@ section {
 
 	.gig {
 
+		&:last-child {
+			border-right: 1px solid @body-color;
+		}
+
 		&.active {
 			h3 {
 				background: #C0E8F5 !important;
@@ -313,10 +321,29 @@ section {
 			background: @color_white;
 			color: @color_primary;
 			margin: @content-margin;
-			padding: @content-margin * 2;
+			padding: @content-margin * 3;
 			text-align: center;
+			font-size: @heading-size * .8;
+			line-height: @heading-size;
 			.drop-shadow(0, 0, 5px, 0.4);
+		}
 
+		.panel.lessons {
+			h4 {
+				color: @color_primary;
+				font-size: @heading-size;
+				text-align: center;
+				margin-top: @content-margin * 2;
+			}
+
+			p {
+				background: @color_white;
+				color: @color_primary;
+				margin: @content-margin;
+				padding: @content-margin * 2;
+				text-align: center;
+				.drop-shadow(0, 0, 5px, 0.4);
+			}
 		}
 	}
 }
@@ -383,11 +410,10 @@ section {
 			&:nth-child(2) {
 				border-top: 1px solid @color_tertiary;
 			}
-		}
 
-
-		li.active {
-			display: none;
+			&:first-child {
+				display: none;
+			}
 		}
 
 	}

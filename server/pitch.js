@@ -62,7 +62,6 @@ Meteor.startup( function ( ) {
 	} )
 
 	Meteor.publish( 'userData', function ( config ) {
-		console.log( config );
 		return Meteor.users.find( {
 			_id: {
 				$in: config.clients
@@ -88,13 +87,10 @@ Meteor.startup( function ( ) {
 				return client[ 0 ] === userId;
 			} );
 
-		console.log( 'ping ' + userId );
-
 		if ( match ) {
 			match[ 1 ] = now;
 
 		} else {
-			console.log( 'add client ' + userId );
 			clients.push( [ userId, now ] );
 			Meteor.streams.presence.emit( 'add', {
 				added: userId,
@@ -102,6 +98,8 @@ Meteor.startup( function ( ) {
 					return client[ 0 ];
 				} )
 			} );
+
+			// Getting inconsistant results with onDisconnect, disabling for now
 
 			// this.onDisconnect = function ( message ) {
 			// 	console.log( 'disconnect client ' + userId );
@@ -117,14 +115,13 @@ Meteor.startup( function ( ) {
 	} );
 
 	// define cleanup interval to expire connections that have dropped
-	// without disconnecting
 	Meteor.setInterval( function ( ) {
 		var now = new Date( ).getTime( );
 
 		clients = _( clients ).chain( ).map( function ( client ) {
-			console.log( 'cleanup client ' + client );
+			//console.log( 'cleanup client ' + client );
 			if ( client[ 1 ] < now - Meteor.pitch.pingInterval * Meteor.pitch.numFailedPingsAllowed ) {
-				console.log( 'drop ' + client[ 0 ] );
+				//console.log( 'drop ' + client[ 0 ] );
 				Meteor.streams.presence.emit( 'drop', {
 					removed: client[ 0 ]
 				} );
