@@ -62,6 +62,7 @@ Meteor.startup( function ( ) {
 	} )
 
 	Meteor.publish( 'userData', function ( config ) {
+		console.log( config );
 		return Meteor.users.find( {
 			_id: {
 				$in: config.clients
@@ -76,7 +77,7 @@ Meteor.startup( function ( ) {
 	} );
 
 
-	/*
+
 	// broadcast disconnects
 	var clients = [ ];
 	Meteor.streams.presence.on( 'ping', function ( ) {
@@ -87,13 +88,13 @@ Meteor.startup( function ( ) {
 				return client[ 0 ] === userId;
 			} );
 
-		//console.log( 'ping ' + userId );
+		console.log( 'ping ' + userId );
 
 		if ( match ) {
 			match[ 1 ] = now;
 
 		} else {
-			//console.log( 'add client ' + userId );
+			console.log( 'add client ' + userId );
 			clients.push( [ userId, now ] );
 			Meteor.streams.presence.emit( 'add', {
 				added: userId,
@@ -102,15 +103,15 @@ Meteor.startup( function ( ) {
 				} )
 			} );
 
-			this.onDisconnect = function ( message ) {
-				//console.log( 'disconnect client ' + userId );
-				clients = _( clients ).chain( ).map( function ( client ) {
-					return client[ 0 ] === userId ? client : false;
-				} ).compact( ).value( );
-				Meteor.streams.presence.emit( 'disconnect', {
-					removed: userId
-				} );
-			};
+			// this.onDisconnect = function ( message ) {
+			// 	console.log( 'disconnect client ' + userId );
+			// 	clients = _( clients ).chain( ).map( function ( client ) {
+			// 		return client[ 0 ] === userId ? client : false;
+			// 	} ).compact( ).value( );
+			// 	Meteor.streams.presence.emit( 'disconnect', {
+			// 		removed: userId
+			// 	} );
+			// };
 		}
 
 	} );
@@ -121,9 +122,9 @@ Meteor.startup( function ( ) {
 		var now = new Date( ).getTime( );
 
 		clients = _( clients ).chain( ).map( function ( client ) {
-			//console.log( 'cleanup client ' + client );
+			console.log( 'cleanup client ' + client );
 			if ( client[ 1 ] < now - Meteor.pitch.pingInterval * Meteor.pitch.numFailedPingsAllowed ) {
-				//console.log( 'drop ' + client[ 0 ] );
+				console.log( 'drop ' + client[ 0 ] );
 				Meteor.streams.presence.emit( 'drop', {
 					removed: client[ 0 ]
 				} );
@@ -143,7 +144,5 @@ Meteor.startup( function ( ) {
 			} );
 		}
 	} );
-
-*/
 
 } );

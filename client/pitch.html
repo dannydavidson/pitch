@@ -27,6 +27,9 @@
   <div class="header">
     <h1>{{brand}}</h1>
     {{> nav}}
+    {{#if isMobile}}
+      <h3>{{connected.length}}</h3>
+    {{/if}}
     <ul>
     {{#each connected}}
       <li class="connected-user">

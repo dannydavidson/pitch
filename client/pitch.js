@@ -1,7 +1,7 @@
 // set local only collection to store connected clients
 var Connected = new Meteor.Collection( null );
 
-Meteor.startup( function () {
+Meteor.startup( function ( ) {
 	// set content margin, matches content margin in CSS
 	var contentMargin = 10,
 		setHeights = true;
@@ -12,10 +12,10 @@ Meteor.startup( function () {
 
 	// methods for client namespace
 	_( Meteor.pitch ).extend( {
-		setContentHeight: function () {
+		setContentHeight: function ( ) {
 			if ( setHeights ) {
-				var height = verge.viewportH(),
-					headerHeight = $( '.header' ).height();
+				var height = verge.viewportH( ),
+					headerHeight = $( '.header' ).height( );
 				$( 'body' ).css( 'margin-top', headerHeight );
 				$( ".content" ).height( height - ( contentMargin * 2 ) - headerHeight );
 			}
@@ -30,20 +30,20 @@ Meteor.startup( function () {
 			Connected.remove( {
 				user: message.removed
 			} );
-			Meteor.pitch.resubscribeUsers();
+			Meteor.pitch.resubscribeUsers( );
 		},
 		mergeConnections: function ( userIds ) {
 			var connected = Connected.find( {} ).map( function ( conn ) {
 				return conn.user;
 			} );
-			_( userIds ).chain().difference( connected ).map( function ( userId ) {
+			_( userIds ).chain( ).difference( connected ).map( function ( userId ) {
 				Connected.insert( {
 					user: userId
 				} );
 			} );
-			Meteor.pitch.resubscribeUsers();
+			Meteor.pitch.resubscribeUsers( );
 		},
-		resubscribeUsers: function () {
+		resubscribeUsers: function ( ) {
 			// update subscription
 
 			Meteor.pitch.userHandle = Meteor.subscribe( 'userData', {
@@ -56,9 +56,9 @@ Meteor.startup( function () {
 			var session,
 				active = fields.active;
 			if ( active ) {
-				var activeEl = $( '[data-id="' + active.id + '"]' ).first(),
-					pos = activeEl.position(),
-					headerHeight = $( '.header' ).height();
+				var activeEl = $( '[data-id="' + active.id + '"]' ).first( ),
+					pos = activeEl.position( ),
+					headerHeight = $( '.header' ).height( );
 				pos = pos.top - headerHeight - Meteor.pitch.margin;
 				TweenLite.to( $( window ), .75, {
 					scrollTo: {
@@ -83,16 +83,15 @@ Meteor.startup( function () {
 					_id: active.stateId
 				} );
 
-				Meteor.pitch.modifyPanelState( state._id, state );
+				if ( state ) {
+					Meteor.pitch.modifyPanelState( state._id, state );
+				}
 			}
-		},
-		adjustContentHeaders: function () {
-
 		},
 		setActive: function ( evt, collectionName ) {
 			var active,
 				state,
-				root = $( evt.currentTarget ).parents( '[data-collection="' + collectionName + '"]' ).first(),
+				root = $( evt.currentTarget ).parents( '[data-collection="' + collectionName + '"]' ).first( ),
 				id = root.data( 'id' );
 
 			Meteor.db.session.update( Session.get( 'sessionId' ), {
@@ -108,7 +107,7 @@ Meteor.startup( function () {
 
 		},
 		modifyPanelState: function ( id, fields ) {
-			var content = $( '[data-stateId="' + id + '"]' ).first();
+			var content = $( '[data-stateId="' + id + '"]' ).first( );
 
 			// set active panel and tab
 			content.find( '.panel.' + fields.active ).addClass( 'active' );
@@ -135,35 +134,35 @@ Meteor.startup( function () {
 
 	// Adjust columns according to breakpoints
 	enquire.register( "screen and (max-width: 767px)", {
-		match: function () {
+		match: function ( ) {
 			Session.set( 'numColumns', 1 );
 		}
 	} )
 
 	.register( "screen and (min-width: 768px) and (max-width: 1200px)", {
-		match: function () {
+		match: function ( ) {
 			Session.set( 'numColumns', 2 );
 		}
 	} )
 
 	.register( "screen and (min-width: 1201px)", {
-		match: function () {
+		match: function ( ) {
 			Session.set( 'numColumns', 3 );
 		}
 	} );
 
 	// subscribe to collections
-	Meteor.autosubscribe( function () {
-		Meteor.subscribe( 'states', function () {
+	Meteor.autosubscribe( function ( ) {
+		Meteor.subscribe( 'states', function ( ) {
 			//console.log( Meteor.db.states.find( {} ).fetch( ) );
 		} );
-		Meteor.subscribe( 'gigs', function () {
+		Meteor.subscribe( 'gigs', function ( ) {
 			//console.log( Meteor.db.gigs.find( {} ).fetch( ) );
 		} );
-		Meteor.subscribe( 'education', function () {
+		Meteor.subscribe( 'education', function ( ) {
 			//console.log( Meteor.db.education.find( {} ).fetch( ) );
 		} );
-		Meteor.subscribe( 'session', Session.get( 'session' ), function () {
+		Meteor.subscribe( 'session', Session.get( 'session' ), function ( ) {
 			//console.log( Meteor.db.session.find( {} ).fetch( ) );
 			var s = Meteor.db.session.findOne( {
 				key: Session.get( 'session' )
@@ -172,7 +171,7 @@ Meteor.startup( function () {
 				Session.set( 'sessionId', s._id )
 			}
 		} );
-		Meteor.subscribe( 'objective', function () {
+		Meteor.subscribe( 'objective', function ( ) {
 			//console.log( Meteor.db.objective.find( {} ).fetch( ) );
 		} );
 	} );
@@ -181,7 +180,7 @@ Meteor.startup( function () {
 	$( window ).resize( _( Meteor.pitch.setContentHeight ).throttle( 200 ) );
 
 	// set active panel for each item by reacting to changes
-	Meteor.autorun( function () {
+	Meteor.autorun( function ( ) {
 
 		var states = Meteor.db.states.find( {} );
 		states.observeChanges( {
@@ -192,7 +191,7 @@ Meteor.startup( function () {
 
 	} );
 
-	Meteor.autorun( function () {
+	Meteor.autorun( function ( ) {
 		var session = Meteor.db.session.find( {
 			key: Session.get( 'session' )
 		} );
@@ -201,12 +200,14 @@ Meteor.startup( function () {
 		} );
 	} );
 
-	/*
+
 	// maintain presence once logged in
 	Meteor.autorun( function ( ) {
 		var handle,
 			user = Meteor.user( );
 		if ( user ) {
+
+			console.log( 'start pinging' )
 
 			// start ping interval
 			handle = Meteor.setInterval( function ( ) {
@@ -220,9 +221,11 @@ Meteor.startup( function () {
 			Meteor.streams.presence.on( 'add', Meteor.pitch.handleAdd );
 
 			// get connected client list from server
-			Meteor.call( 'getConnected', function ( err, result ) {
-				Meteor.pitch.mergeConnections( result );
-			} );
+			Meteor.setTimeout( function ( ) {
+				Meteor.call( 'getConnected', function ( err, result ) {
+					Meteor.pitch.mergeConnections( result );
+				} );
+			}, 500 );
 
 		} else {
 
@@ -230,12 +233,11 @@ Meteor.startup( function () {
 			Meteor.clearInterval( handle );
 		}
 	} );
-*/
 
 } );
 
 // feed the gigs
-Template.gigs.rows = function () {
+Template.gigs.rows = function ( ) {
 	// fetch all the gigs, making sure an active state is set
 	var gigs = Meteor.db.gigs.find( {} ).map( function ( gig ) {
 
@@ -252,22 +254,22 @@ Template.gigs.rows = function () {
 	} );
 
 	// group gigs into rows
-	return _( gigs ).chain().groupBy( function ( gig, i ) {
+	return _( gigs ).chain( ).groupBy( function ( gig, i ) {
 		return Math.floor( i / Session.get( 'numColumns' ) );
-	} ).values().value();
+	} ).values( ).value( );
 
 };
 
-Template.gigRow.rendered = function () {
+Template.gigRow.rendered = function ( ) {
 	// set content heights
-	Meteor.pitch.setContentHeight();
+	Meteor.pitch.setContentHeight( );
 
 	// match height of headers across row
 	var headers = this.findAll( 'h3' ),
 		max = _( headers ).max( function ( el ) {
-			return $( el ).height();
+			return $( el ).height( );
 		} ),
-		height = $( max ).height();
+		height = $( max ).height( );
 
 	_( headers ).each( function ( el ) {
 		$( el ).height( height );
@@ -278,7 +280,7 @@ Template.gigRow.rendered = function () {
 Template.gig.events( {
 	'click .tech, tap .tech': function ( evt ) {
 		//evt.preventDefault( );
-		evt.stopImmediatePropagation();
+		evt.stopImmediatePropagation( );
 		Meteor.db.states.update( this.stateId, {
 			$set: {
 				active: 'tech'
@@ -288,7 +290,7 @@ Template.gig.events( {
 	},
 	'click .lessons, tap .lessons': function ( evt ) {
 		//evt.preventDefault( );
-		evt.stopImmediatePropagation();
+		evt.stopImmediatePropagation( );
 		Meteor.db.states.update( this.stateId, {
 			$set: {
 				active: 'lessons'
@@ -298,7 +300,7 @@ Template.gig.events( {
 	},
 	'click .description, tap .description': function ( evt ) {
 		//evt.preventDefault( );
-		evt.stopImmediatePropagation();
+		evt.stopImmediatePropagation( );
 		Meteor.db.states.update( this.stateId, {
 			$set: {
 				active: 'description'
@@ -308,27 +310,35 @@ Template.gig.events( {
 	},
 	'click h3, tap h3': function ( evt ) {
 		//evt.preventDefault( );
-		evt.stopImmediatePropagation();
+		evt.stopImmediatePropagation( );
 
 		Meteor.pitch.setActive( evt, 'gigs' );
 	}
 } );
 
-Template.education.education = function () {
+Template.education.education = function ( ) {
 	return Meteor.db.education.findOne( {
 		default: true
 	} );
 }
 
-// Template.header.connected = function ( ) {
-// 	return _( Connected.find( {} ).fetch( ) ).chain( ).uniq( function ( conn ) {
-// 		return conn.user;
-// 	} ).map( function ( conn ) {
-// 		return Meteor.users.findOne( conn.user );
-// 	} ).value( );
-// }
+Template.header.connected = function ( ) {
+	return _( Connected.find( {} ).fetch( ) ).chain( ).uniq( function ( conn ) {
+		return conn.user;
+	} ).map( function ( conn ) {
+		return Meteor.users.findOne( conn.user );
+	} ).value( );
+}
 
-Template.header.brand = function () {
+Template.header.isMobile = function ( ) {
+	var columns = Session.get( 'numColumns' );
+	if ( columns === 1 ) {
+		return true;
+	}
+	return false;
+}
+
+Template.header.brand = function ( ) {
 	var numColumns = Session.get( 'numColumns' );
 	if ( numColumns > 1 ) {
 		return 'Danny Davidson';
@@ -338,8 +348,8 @@ Template.header.brand = function () {
 
 Template.header.events( {
 	'click h1, tap h1': function ( evt ) {
-		evt.preventDefault();
-		evt.stopImmediatePropagation();
+		evt.preventDefault( );
+		evt.stopImmediatePropagation( );
 
 		var state = Meteor.db.session.findOne( {
 			key: 'default'
@@ -348,7 +358,7 @@ Template.header.events( {
 	}
 } );
 
-Template.nav.sections = function () {
+Template.nav.sections = function ( ) {
 	var sections,
 		session = Meteor.db.session.findOne( {
 			key: 'default'
@@ -356,7 +366,7 @@ Template.nav.sections = function () {
 
 	function toSetActive( config ) {
 		if ( config.key === session.active.collection ) {
-			config = _( config ).clone()
+			config = _( config ).clone( )
 			config.active = true;
 			config.id = session.active.id;
 		}
@@ -371,7 +381,7 @@ Template.nav.sections = function () {
 		sections = _.chain( Meteor.pitch.sectionHeadings )
 			.map( toSetActive )
 			.sortBy( activeFirst )
-			.value();
+			.value( );
 		return sections;
 	}
 
@@ -382,22 +392,22 @@ Template.nav.sections = function () {
 
 }
 
-Template.nav.isOpen = function () {
+Template.nav.isOpen = function ( ) {
 	return Session.get( 'navOpen' );
 }
 
 Template.nav.events( {
 	'click h2, tap h2': function ( evt ) {
-		evt.preventDefault();
-		evt.stopImmediatePropagation();
+		evt.preventDefault( );
+		evt.stopImmediatePropagation( );
 		Session.set( 'navOpen', !Session.get( 'navOpen' ) );
 	},
 	'click li, tap li': function ( evt ) {
 		var key = $( evt.currentTarget ).data( 'key' ),
-			first = _( Meteor.db[ key ].find( {} ).fetch() ).first();
+			first = _( Meteor.db[ key ].find( {} ).fetch( ) ).first( );
 
-		evt.preventDefault();
-		evt.stopImmediatePropagation();
+		evt.preventDefault( );
+		evt.stopImmediatePropagation( );
 
 		Session.set( 'navOpen', !Session.get( 'navOpen' ) );
 		Meteor.db.session.update( Session.get( 'sessionId' ), {
@@ -412,7 +422,7 @@ Template.nav.events( {
 	}
 } );
 
-Template.objective.objective = function () {
+Template.objective.objective = function ( ) {
 	var objective = Meteor.db.objective.findOne( {
 		key: 'default'
 	} );
@@ -421,8 +431,8 @@ Template.objective.objective = function () {
 
 Template.education.events( {
 	'click .school, tap .school': function ( evt ) {
-		evt.preventDefault();
-		evt.stopImmediatePropagation();
+		evt.preventDefault( );
+		evt.stopImmediatePropagation( );
 
 		Meteor.pitch.setActive( evt, 'education' );
 	}
@@ -430,8 +440,8 @@ Template.education.events( {
 
 Template.objective.events( {
 	'click h2': function ( evt ) {
-		evt.preventDefault();
-		evt.stopImmediatePropagation();
+		evt.preventDefault( );
+		evt.stopImmediatePropagation( );
 
 		Meteor.pitch.setActive( evt, 'objective' );
 	}

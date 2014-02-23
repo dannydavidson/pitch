@@ -15,8 +15,8 @@ streams.presence = new Meteor.Stream( 'presence' );
 Meteor.pitch = {
 	margin: 10,
 	pingInterval: 1 * 3000,
-	cleanupCoefficient: 2,
-	numFailedPingsAllowed: 1,
+	cleanupCoefficient: 1.5,
+	numFailedPingsAllowed: 2,
 	sectionHeadings: [
 		{
 			key: 'objective',
