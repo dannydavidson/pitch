@@ -350,7 +350,7 @@ Template.education.rendered = function ( ) {
 	Meteor.pitch.refreshState( );
 }
 
-Template.header.connected = function ( ) {
+Template.connected.connected = function ( ) {
 	return _( Connected.find( {} ).fetch( ) ).chain( ).uniq( function ( conn ) {
 		return conn.user;
 	} ).map( function ( conn ) {
@@ -366,12 +366,17 @@ Template.header.isMobile = function ( ) {
 	return false;
 }
 
+Template.hand.raised = function ( ) {
+	return [ ];
+
+}
+
 Template.header.brand = function ( ) {
 	var numColumns = Session.get( 'numColumns' );
 	if ( numColumns > 1 ) {
 		return 'Danny Davidson';
 	}
-	return 'DD';
+	return 'D';
 };
 
 Template.header.events( {

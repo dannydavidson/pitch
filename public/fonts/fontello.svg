@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2014 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="school" unicode="&#xe800;" d="m638 800c-49 0-88-39-88-87s39-88 88-88s87 39 87 88s-39 87-87 87z m-400-100c-49 0-88-39-88-87s39-88 88-88s87 39 87 88s-39 87-87 87z m462-100c-19 0-49-7-75-25l-162-116c-45-31-4-86 37-59l106 70s70-150 44-220c-1-2-2-4-2-6l-109-291c-12-33 12-53 36-53c16 0 31 10 39 28l136 322s25-150 125-150c60 0 104 0 138 0c37 0 37 38 37 38s0 37-37 37c-25 0-88 0-113 0c-53 0-50 80-50 125c0 75-50 200-50 200l150-100c45-30 85 23 41 56l-166 119c-30 22-40 25-75 25c0 0-25 0-50 0z m-525-100c-25 0-37-12-50-25l-106-106c-14-14-19-26-19-44c0-25 38-37 59-16l91 91c50 0 69-125 50-175l-75-200c-21-55 57-72 75-25l75 200s25-50 75-50l150 0c50 0 50 75 0 75l-125 0c-25 0-25 50-25 75c0 100-50 200-100 200z" horiz-adv-x="1050" />
+</font>
+</defs>
+</svg>
