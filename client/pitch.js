@@ -31,7 +31,18 @@ Meteor.startup( function () {
 			if ( setHeights ) {
 				var height = verge.viewportH(),
 					headerHeight = $( '.header' ).height();
-				$( 'body' ).css( 'margin-top', headerHeight );
+
+				if ( Session.get( 'numColumns' ) === 1 ) {
+					$( 'body' ).css( {
+						'padding-bottom': headerHeight,
+						'padding-top': 0
+					} );
+				} else {
+					$( 'body' ).css( {
+						'padding-top': headerHeight,
+						'padding-bottom': 0
+					} );
+				}
 				$( ".content" ).height( height - ( contentMargin * 2 ) - headerHeight );
 			}
 		},

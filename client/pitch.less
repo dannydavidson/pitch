@@ -47,7 +47,9 @@
 body {
 	font-family: @body-font;
 	background: @body-color;
-	padding-bottom: 30px;
+	float: left;
+	margin-bottom: @content-margin;
+
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -71,11 +73,6 @@ section {
 	.drop-shadow(0, 0, 5px, 0.4);
 	.rounded(2px);
 	.box-sizing(padding-box);
-
-
-	&:last-child {
-		margin-bottom: @content-margin;
-	};
 }
 
 .intro {
@@ -364,8 +361,9 @@ section {
 
 .signin.mobile {
 	position: absolute;
-	top: 5px;
-	right: 10px;
+	top: @content-margin * 1.3;
+	right: @content-margin * 1.7;
+	z-index: 999;
 
 	a.login-link-text {
 		color: @color_white;
