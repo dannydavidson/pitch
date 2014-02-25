@@ -383,6 +383,25 @@ section {
 	&.mobile {
 		bottom: 0;
 		top: inherit;
+
+		.nav {
+			ul {
+				.border-radius(5px, 0, 0, 5px);
+				overflow: hidden;
+			}
+
+			li {
+
+				&:nth-child(2) {
+					border-top: none;
+				}
+
+				&:last-child {
+					border-bottom: 1px solid @color_tertiary;
+				}
+
+			}
+		}
 	}
 
 	h1 {

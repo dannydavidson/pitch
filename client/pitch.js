@@ -467,6 +467,21 @@ Template.nav.isOpen = function () {
 	return Session.get( 'navOpen' );
 }
 
+Template.nav.rendered = function () {
+	var btn = $( this.find( 'h2' ) ),
+		menu = $( this.find( 'ul' ) ),
+		headerHeight = $( '.header' ).height();
+	if ( menu ) {
+		if ( Session.get( 'numColumns' ) === 1 ) {
+			menu.css( {
+				'position': 'absolute',
+				'bottom': headerHeight,
+			} );
+			menu.find( 'li' ).css( 'min-width', btn.width() + 1 );
+		}
+	}
+}
+
 Template.nav.events( {
 
 	'click h2': function ( evt ) {
