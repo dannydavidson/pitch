@@ -43,28 +43,38 @@
 </template>
 
 <template name="header">
-  <div class="header">
+  <div class="header {{#if isMobile}}mobile{{/if}}">
     <h1>{{brand}}</h1>
     {{> nav}}
     {{> connected}}
     {{> hand}}
-    <ul>
-    {{#each connected}}
-      <li class="connected-user">
-        {{username}}
-      </li>
-    {{/each}}
-    </ul>
+    {{#unless isMobile}}
     <div class="signin">
       {{loginButtons align="right"}}
     </div>
+    {{/unless}}
   </div>
+  {{#if isMobile}}
+  <div class="signin mobile">
+      {{loginButtons align="right"}}
+  </div>
+  {{/if}}
+
 </template>
 
 <template name="connected">
   <div class="connected">
-    <span class="icon-school"></span>
-    <h3>{{connected.length}}</h3>
+    <div class="connected-btn">
+      <span class="icon-school"></span>
+      <h3>{{connected.length}}</h3>
+    </div>
+    {{#if isOpen}}
+    <ul class="connected-list">
+      {{#each connected}}
+          <li data-key="{{_id}}">{{username}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
   </div>
 </template>
 

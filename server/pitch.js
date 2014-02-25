@@ -1,4 +1,4 @@
-Meteor.startup( function ( ) {
+Meteor.startup( function () {
 
 	var objectiveId;
 
@@ -39,23 +39,23 @@ Meteor.startup( function ( ) {
 	} );
 
 	// publish records
-	Meteor.publish( 'gigs', function ( ) {
+	Meteor.publish( 'gigs', function () {
 		return Meteor.db.gigs.find( {} );
 	} );
 
-	Meteor.publish( 'projects', function ( ) {
+	Meteor.publish( 'projects', function () {
 		return Meteor.db.projects.find( {} );
 	} );
 
-	Meteor.publish( 'states', function ( ) {
+	Meteor.publish( 'states', function () {
 		return Meteor.db.states.find( {} );
 	} );
 
-	Meteor.publish( 'education', function ( ) {
+	Meteor.publish( 'education', function () {
 		return Meteor.db.education.find( {} );
 	} );
 
-	Meteor.publish( 'objective', function ( ) {
+	Meteor.publish( 'objective', function () {
 		return Meteor.db.objective.find( {
 			key: 'default'
 		} );
@@ -78,11 +78,11 @@ Meteor.startup( function ( ) {
 
 
 	// broadcast disconnects
-	var clients = [ ];
-	Meteor.streams.presence.on( 'ping', function ( ) {
+	var clients = [];
+	Meteor.streams.presence.on( 'ping', function () {
 
 		var userId = this.userId,
-			now = new Date( ).getTime( ),
+			now = new Date().getTime(),
 			match = _( clients ).find( function ( client ) {
 				return client[ 0 ] === userId;
 			} );
@@ -115,10 +115,10 @@ Meteor.startup( function ( ) {
 	} );
 
 	// define cleanup interval to expire connections that have dropped
-	Meteor.setInterval( function ( ) {
-		var now = new Date( ).getTime( );
+	Meteor.setInterval( function () {
+		var now = new Date().getTime();
 
-		clients = _( clients ).chain( ).map( function ( client ) {
+		clients = _( clients ).chain().map( function ( client ) {
 			//console.log( 'cleanup client ' + client );
 			if ( client[ 1 ] < now - Meteor.pitch.pingInterval * Meteor.pitch.numFailedPingsAllowed ) {
 				//console.log( 'drop ' + client[ 0 ] );
@@ -129,13 +129,13 @@ Meteor.startup( function ( ) {
 			}
 			return client;
 
-		} ).compact( ).value( );
+		} ).compact().value();
 
 	}, Meteor.pitch.pingInterval * Meteor.pitch.cleanupCoefficient );
 
 	// define methods
 	Meteor.methods( {
-		getConnected: function ( ) {
+		getConnected: function () {
 			return _( clients ).map( function ( client ) {
 				return client[ 0 ];
 			} );
