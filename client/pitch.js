@@ -405,15 +405,23 @@ Template.connected.isOpen = function ( ) {
 }
 
 Template.connected.rendered = function ( ) {
+	var btn = $( this.find( '.connected-btn' ) ),
+		list = $( this.find( 'ul' ) ),
+		headerHeight = $( '.header' ).height( );
 	if ( Session.get( 'numColumns' ) === 1 ) {
-		$( this.find( 'ul' ) ).css( {
-			position: 'absolute'
+		$( list ).css( {
+			position: 'absolute',
+			bottom: headerHeight
 		} );
+		list.find( 'li' ).css( 'min-width', btn.width( ) + 1 );
+
 	}
 };
 
 Template.connected.events( {
 	'click .connected-btn': function ( evt ) {
+		evt.preventDefault( );
+		evt.stopPropagation( );
 		Session.set( 'connectedOpen', !Session.get( 'connectedOpen' ) );
 	}
 } );
@@ -424,11 +432,6 @@ Template.header.isMobile = function ( ) {
 		return true;
 	}
 	return false;
-}
-
-Template.hand.raised = function ( ) {
-	return [ ];
-
 }
 
 Template.header.brand = function ( ) {
@@ -445,7 +448,7 @@ Template.header.events( {
 		evt.preventDefault( );
 
 		var state = Meteor.db.session.findOne( {
-			key: Session.get( 'key' )
+			key: Session.get( 'session' )
 		} );
 		Meteor.pitch.showStateChange( state._id, state );
 	}

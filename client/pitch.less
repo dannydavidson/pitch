@@ -458,7 +458,7 @@ section {
 		.connected-btn {
 			padding: 0 @content-margin * 2;
 			height: @heading-height * 1.2;
-
+			z-index: 999;
 		}
 
 		span {
@@ -589,6 +589,19 @@ section {
 
 	.nav ul {
 		.border-radius(5px, 0, 0, 5px);
+	}
 
+	.connected ul {
+		border-top: none;
+		.border-radius(5px, 0, 0, 5px);
+
+		li {
+			&:first-child {
+				border-top: none !important;
+			}
+			&:last-child {
+				border-bottom: 1px solid @color_quaternary;
+			}
+		}
 	}
 }

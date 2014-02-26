@@ -8,22 +8,34 @@ Meteor.startup( function ( ) {
 	Meteor.db.education.remove( {} );
 	Meteor.db.objective.remove( {} );
 	Meteor.db.session.remove( {} );
-	Meteor.users.remove( {} );
-
-	me = Accounts.createUser( {
-		username: 'danny',
-		password: '2Austin123',
-		profile: {
-			master: true
+	Meteor.users.remove( {
+		$not: {
+			'username': 'danny'
 		}
 	} );
 
-	// Create accounts for targets
-	Accounts.createUser( {
-		username: 't-3',
-		password: 'dogs+babies',
-		profile: {}
-	} );
+	try {
+		me = Accounts.createUser( {
+			username: 'danny',
+			password: '2Austin123',
+			profile: {
+				master: true
+			}
+		} );
+
+		// Create accounts for targets
+		Accounts.createUser( {
+			username: 't-3',
+			password: 'dogs+babies',
+			profile: {}
+		} );
+
+	} catch ( e ) {
+		me = Meteor.users.findOne( {
+			username: 'danny'
+		} );
+	}
+
 
 	// publish records
 	Meteor.publish( 'gigs', function ( sessionKey ) {
