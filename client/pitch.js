@@ -166,13 +166,15 @@ Meteor.startup( function ( ) {
 			var el = $( evt.currentTarget ),
 				parent = el.parents( '[data-collection="objective"]' ).first( ),
 				id = parent.attr( 'data-id' ),
-				newDescription = el.text( ).replace( /(\r\n|\n|\r)/gm, '' );
+				newDescription = el.text( ).replace( /(\r\n|\n|\r)/g, '' );
 
-			Meteor.db.objective.update( id, {
-				$set: {
-					description: newDescription
-				}
-			} );
+			if ( Meteor.user( ) ) {
+				Meteor.db.objective.update( id, {
+					$set: {
+						description: newDescription
+					}
+				} );
+			}
 		}
 	} );
 
@@ -544,6 +546,7 @@ Template.objective.objective = function ( ) {
 }
 
 Template.objective.rendered = function ( ) {
+	$( window ).unbind( 'keyup' );
 	Meteor.pitch.setContentHeight( );
 	Meteor.pitch.refreshState( );
 };
@@ -554,12 +557,12 @@ Template.objective.events( {
 		Meteor.pitch.setActive( evt, 'objective' );
 	},
 	'blur h2': function ( evt ) {
-		$( 'body' ).keyup( null );
 		Meteor.pitch.updateObjective( evt );
 	},
 	'focus h2': function ( evt ) {
-		$( 'body' ).keyup( function ( keyEvt ) {
+		$( window ).keyup( function ( keyEvt ) {
 			if ( _( [ 27, 13 ] ).contains( keyEvt.which ) ) {
+				evt.currentTarget = $( '.objective h2' )[ 0 ];
 				Meteor.pitch.updateObjective( evt );
 			}
 		} );
