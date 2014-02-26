@@ -47,7 +47,6 @@
     <h1>{{brand}}</h1>
     {{> nav}}
     {{> connected}}
-    {{> hand}}
     {{#unless isMobile}}
     <div class="signin">
       {{loginButtons align="right"}}
@@ -177,7 +176,7 @@
   <div class="content objective mobile-grid-100 tablet-grid-66 grid-66 {{#if active}}active{{/if}}" data-collection="objective" data-id="{{objective._id}}">
     <div class="wrapper">
       <h3>Objective</h3>
-      <h2>
+      <h2 contenteditable="true">
         {{objective.description}}
       </h2>
     </div>

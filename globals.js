@@ -13,7 +13,6 @@ streams.presence = new Meteor.Stream( 'presence' );
 
 // define namespace for shared methods and set constants
 Meteor.pitch = {
-	margin: 10,
 	pingInterval: 1 * 3000,
 	cleanupCoefficient: 1.5,
 	numFailedPingsAllowed: 2,
