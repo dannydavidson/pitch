@@ -166,7 +166,7 @@ Meteor.startup( function ( ) {
 			var el = $( evt.currentTarget ),
 				parent = el.parents( '[data-collection="objective"]' ).first( ),
 				id = parent.attr( 'data-id' ),
-				newDescription = el.text( ).replace( /(\r\n|\n|\r)/g, '' );
+				newDescription = _.str.clean( el.text( ).replace( /(\r\n|\n|\r)/g, '' ) );
 
 			if ( Meteor.user( ) ) {
 				Meteor.db.objective.update( id, {

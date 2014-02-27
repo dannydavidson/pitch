@@ -26,7 +26,7 @@ Meteor.startup( function ( ) {
 		// Create accounts for targets
 		Accounts.createUser( {
 			username: 't-3',
-			password: 'dogs+babies',
+			password: 'realtime',
 			profile: {}
 		} );
 
