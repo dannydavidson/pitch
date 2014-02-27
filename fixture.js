@@ -16,14 +16,43 @@ gigs = [
 		stacks: [
 			{
 				name: 'Rendr',
-				description: 'Backbone + Express'
+				description: 'Backbone + Express',
+				url: 'https://github.com/rendrjs/rendr'
 			},
 			{
-				name: 'Neo4j',
-				description: 'First-in-class graph database'
+				name: 'Stylus',
+				description: 'CSS precompiler',
+				url: 'http://learnboost.github.io/stylus/'
 			}
 		],
 		learnings: 'Both the hurdles and the awesome potential of polymorphic javascript frameworks for simplifying web development.'
+	},
+	{
+		title: 'Modeled Social Graph using Neo4j',
+		start_date: '6/13',
+		end_date: 'Now',
+		company: 'Sports195',
+		url: 'https://github.com/dannydavidson/s195-graph',
+		location: 'NYC, Austin',
+		description: "Using node and neo4j I set up a proof-of-concept graph model and API for Sports195's social network",
+		stacks: [
+			{
+				name: 'Neo4j',
+				description: 'First-in-class graph database',
+				url: 'http://www.neo4j.org/'
+			},
+			{
+				name: 'Restify',
+				description: 'Node REST API framework',
+				url: 'http://mcavage.me/node-restify/'
+			},
+			{
+				name: 'Firebase',
+				description: 'SaaS realtime database',
+				url: 'https://www.firebase.com/'
+			}
+		],
+		learnings: 'How to effectively model and query for graph data in Neo4j'
 	},
 	{
 		title: 'Built Google maps Meteor prototype for startup',
@@ -58,10 +87,11 @@ gigs = [
 			},
 			{
 				name: 'ZeroMQ',
-				description: 'Next-gen messaging framework'
+				description: 'Next-gen messaging framework',
+				url: 'http://zeromq.org/'
 			}
 		],
-		learnings: 'How to connect distributed systems to create a fun-to-use prototyping platform'
+		learnings: 'How to build development workflows around rapid prototyping'
 	},
 	{
 		title: 'Served as Lead Prototyper',
@@ -70,7 +100,7 @@ gigs = [
 		company: 'Dell',
 		url: 'http://www.dell.com',
 		location: 'Austin, TX',
-		description: "I helped educate a creative team on modern coding practices and led them through 3 separate prototype builds. Together we made excellent progress molding Twitter's Bootstrap and MeteorJS into a platform for rapid GUI prototyping.",
+		description: "I helped educate a creative team on modern coding practices and led them through multiple rapid prototype builds. Together we made excellent progress molding Twitter's Bootstrap and MeteorJS into a platform for rapid GUI prototyping.",
 		stacks: [
 			meteor,
 			{
@@ -100,7 +130,7 @@ gigs = [
 				name: 'Flash Platform'
 			}
 		],
-		learnings: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, maxime, quia, aut fugit possimus eius deleniti dolor illum ex ut ab recusandae excepturi maiores quos repudiandae nostrum cumque harum ratione.'
+		learnings: 'How to manage multiple fast-moving projects at NYC startup speed'
 	},
 	{
 		title: 'Built a Translation Management System',
@@ -109,18 +139,14 @@ gigs = [
 		company: 'T3 for UPS',
 		url: 'http://www.t-3.com',
 		location: 'Austin, TX',
-		description: "Over 5 months with the help of a Django contractor, I designed & amp; built a translation management application for UPS website banners that gave translators a workflow queue with manager approval steps.Translators could live - edit new banners & amp; immediately QA the content in the Flash module.Our internal client could plan out separate messaging deployments & amp; generate deployment tarballs to be loaded directly into their CMS.",
+		description: "I designed &amp; built a translation app for UPS website banners that gave translators a workflow queue with manager approval steps. Translators could live-edit new banners &amp; immediately QA the rendered content.",
 		stacks: [
 			{
 				name: 'Django',
 				description: ''
-			},
-			{
-				name: 'Twitter API',
-				description: ''
-			},
+			}
 		],
-		learnings: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam, maxime, quia, aut fugit possimus eius deleniti dolor illum ex ut ab recusandae excepturi maiores quos repudiandae nostrum cumque harum ratione.'
+		learnings: 'How to model complex software using Django'
 	}
 ];
 
@@ -144,5 +170,5 @@ education = [
 
 objective = {
 	key: 'default',
-	description: "To build a creative workflow around the newest crop of web technologies."
+	description: "To build a creative workflow around the newest generation of web tech"
 }

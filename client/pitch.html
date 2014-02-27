@@ -117,7 +117,7 @@
 
         <div class="meta">
           <span class="org">
-            <span class="company"><a href="{{url}}" target="_blank">{{company}}</a></span>
+            <span class="company">{{#if url}}<a href="{{url}}" target="_blank">{{company}}</a>{{else}}{{company}}{{/if}}</span>
             <span class="location">{{location}}</span>
             <span class="timespan">{{start_date}} - {{end_date}}</span>
 
