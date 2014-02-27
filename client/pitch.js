@@ -405,7 +405,7 @@ Template.connected.isOpen = function ( ) {
 }
 
 Template.connected.rendered = function ( ) {
-	var btn = $( this.find( '.connected-btn' ) ),
+	var btn = $( this.find( '.connected' ) ),
 		list = $( this.find( 'ul' ) ),
 		headerHeight = $( '.header' ).height( );
 	if ( Session.get( 'numColumns' ) === 1 ) {
