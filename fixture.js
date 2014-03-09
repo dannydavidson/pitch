@@ -60,7 +60,7 @@ gigs = [
 		end_date: '4/13',
 		company: 'Realmassive',
 		location: 'Austin, TX',
-		description: "Realmassive had a great business model but no vision for their web presence. In less than 60 hours of dev time I built a full-functioning prototype that got them funded by Austin Ventures.",
+		description: "Realmassive had a great business model but needed help defining their web presence. In less than 60 hours of dev time I built a full-functioning prototype that helped get them funded by Austin Ventures.",
 		stacks: [
 			meteor,
 			{
