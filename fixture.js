@@ -1,6 +1,6 @@
 var meteor = {
 	name: 'Meteor',
-	description: 'Reactive, realtime polymorphic javascript framework.',
+	description: 'Reactive, realtime isomorphic javascript framework.',
 	url: 'http://meteor.com'
 };
 
@@ -12,7 +12,7 @@ gigs = [
 		company: 'Sports195',
 		url: 'http://www.sports195.com',
 		location: 'NYC, Austin',
-		description: "We've used <a href='https://github.com/airbnb/rendr'>Rendr</a>, a Backbone + Express polymorphic javascript framework from Airbnb, to create a mobile-first, SEO-friendly web app as part of Sport195's growing sports platform.",
+		description: "We've used <a href='https://github.com/airbnb/rendr'>Rendr</a>, a Backbone + Express isomorphic javascript framework from Airbnb, to create a mobile-first, SEO-friendly web app as part of Sport195's growing sports platform.",
 		stacks: [
 			{
 				name: 'Rendr',
@@ -25,7 +25,7 @@ gigs = [
 				url: 'http://learnboost.github.io/stylus/'
 			}
 		],
-		learnings: 'Both the hurdles and the awesome potential of polymorphic javascript frameworks for simplifying web development.'
+		learnings: 'Both the hurdles and the awesome potential of isomorphic javascript frameworks for simplifying web development.'
 	},
 	{
 		title: 'Modeled Social Graph using Neo4j',
