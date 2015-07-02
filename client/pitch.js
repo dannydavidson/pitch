@@ -1,7 +1,7 @@
 // set local only collection to store connected clients
 var Connected = new Meteor.Collection(null),
 
-  toggleModalsOff = function (evt) {
+  toggleModalsOff = function(evt) {
     if (Session.get('connectedOpen')) {
       Session.set('connectedOpen', false);
     }
@@ -12,7 +12,7 @@ var Connected = new Meteor.Collection(null),
 
 Session.set('loaded', false);
 
-Meteor.startup(function () {
+Meteor.startup(function() {
   // set content margin, matches content margin in CSS
   var contentMargin = 10;
   var setHeights = true;
@@ -31,7 +31,7 @@ Meteor.startup(function () {
   // methods for client namespace
   _(Meteor.pitch)
     .extend({
-      setContentHeight: function () {
+      setContentHeight: function() {
 
         if (setHeights) {
           var height = verge.viewportH(),
@@ -54,32 +54,41 @@ Meteor.startup(function () {
 
           $(".content")
             .height(height - (contentMargin * 2) - headerHeight);
+
+          $('.detail-content').each(function() {
+            var $content = $(this);
+            var $meta = $content.siblings('.meta');
+            var $controls = $content.siblings('.controls');
+            var metaOffsetWithHeight = $meta.position().top + $meta.height();
+            var controlsOffset = $controls.position().top;
+            $content.height(controlsOffset - metaOffsetWithHeight);
+          })
         }
       },
 
-      handleAdd: function (message) {
+      handleAdd: function(message) {
         Connected.insert({
           user: message.added
         });
         Meteor.pitch.mergeConnections(message.clients);
       },
 
-      handleDisconnect: function (message) {
+      handleDisconnect: function(message) {
         Connected.remove({
           user: message.removed
         });
         Meteor.pitch.resubscribeUsers();
       },
 
-      mergeConnections: function (userIds) {
+      mergeConnections: function(userIds) {
         var connected = Connected.find({})
-          .map(function (conn) {
+          .map(function(conn) {
             return conn.user;
           });
         _(userIds)
           .chain()
           .difference(connected)
-          .map(function (userId) {
+          .map(function(userId) {
             Connected.insert({
               user: userId
             });
@@ -87,18 +96,18 @@ Meteor.startup(function () {
         Meteor.pitch.resubscribeUsers();
       },
 
-      resubscribeUsers: function () {
+      resubscribeUsers: function() {
         // update subscription
 
         Meteor.pitch.userHandle = Meteor.subscribe('userData', {
           clients: Connected.find({})
-            .map(function (conn) {
+            .map(function(conn) {
               return conn.user;
             })
         })
       },
 
-      showStateChange: function (id, fields) {
+      showStateChange: function(id, fields) {
         var session,
           active = fields.active;
 
@@ -147,7 +156,7 @@ Meteor.startup(function () {
         } catch (e) {}
       },
 
-      setActive: function (evt, collectionName) {
+      setActive: function(evt, collectionName) {
         var active,
           state,
           root = $(evt.currentTarget)
@@ -162,13 +171,13 @@ Meteor.startup(function () {
               id: id
             }
           }
-        }, function (err) {
+        }, function(err) {
           //console.log( err );
         });
 
       },
 
-      modifyPanelState: function (id, fields) {
+      modifyPanelState: function(id, fields) {
         var content = $('[data-stateId="' + id + '"]')
           .first();
 
@@ -187,7 +196,7 @@ Meteor.startup(function () {
           .removeClass('selected');
       },
 
-      refreshState: function () {
+      refreshState: function() {
         var session = Meteor.db.session.findOne({
           key: Session.get('session')
         });
@@ -197,7 +206,7 @@ Meteor.startup(function () {
           });
         }
       },
-      updateObjective: function (evt) {
+      updateObjective: function(evt) {
         var el = $(evt.currentTarget),
           parent = el.parents('[data-collection="objective"]').first(),
           id = parent.attr('data-id'),
@@ -224,7 +233,7 @@ Meteor.startup(function () {
   });
 
   // register helper
-  Handlebars.registerHelper('isActive', function (data, options) {
+  Handlebars.registerHelper('isActive', function(data, options) {
     if (this.active === data) {
       return options.fn(this);
     }
@@ -233,31 +242,31 @@ Meteor.startup(function () {
 
   // Adjust columns according to breakpoints
   enquire.register("screen and (max-width: 767px)", {
-    match: function () {
+    match: function() {
       Session.set('numColumns', 1);
     }
   })
 
   .register("screen and (min-width: 768px) and (max-width: 1200px)", {
-    match: function () {
+    match: function() {
       Session.set('numColumns', 2);
     }
   })
 
   .register("screen and (min-width: 1201px)", {
-    match: function () {
+    match: function() {
       Session.set('numColumns', 3);
     }
   });
 
   // subscribe to collections
-  Meteor.autosubscribe(function () {
-    var onComplete = _.after(5, function () {
+  Meteor.autosubscribe(function() {
+    var onComplete = _.after(5, function() {
       Session.set('loaded', true);
       Meteor.pitch.refreshState();
     });
 
-    Meteor.subscribe('session', Session.get('session'), function () {
+    Meteor.subscribe('session', Session.get('session'), function() {
       var s = Meteor.db.session.findOne({
         key: Session.get('session')
       });
@@ -282,7 +291,7 @@ Meteor.startup(function () {
 
 
   // set active panel for each item by reacting to changes
-  Meteor.autorun(function () {
+  Meteor.autorun(function() {
 
     var states = Meteor.db.states.find({
       session: Session.get('session')
@@ -295,7 +304,7 @@ Meteor.startup(function () {
 
 
   // update active state whenever the session changes
-  Meteor.autorun(function () {
+  Meteor.autorun(function() {
     var session = Meteor.db.session.find({
       key: Session.get('session')
     });
@@ -306,15 +315,15 @@ Meteor.startup(function () {
 
 });
 
-Template.main.loaded = function () {
+Template.main.loaded = function() {
   return Session.get('loaded');
 };
 
 // feed the gigs
-Template.gigs.rows = function () {
+Template.gigs.rows = function() {
   // fetch all the gigs, making sure an active state is set
   var gigs = Meteor.db.gigs.find({})
-    .map(function (gig) {
+    .map(function(gig) {
 
       // fetch matching state, but don't react to changes
       var states = Meteor.db.states.findOne(gig.stateId, {
@@ -332,7 +341,7 @@ Template.gigs.rows = function () {
   // group gigs into rows
   return _(gigs)
     .chain()
-    .groupBy(function (gig, i) {
+    .groupBy(function(gig, i) {
       return Math.floor(i / Session.get('numColumns'));
     })
     .values()
@@ -340,7 +349,7 @@ Template.gigs.rows = function () {
 
 };
 
-Template.gigRow.rendered = function () {
+Template.gigRow.rendered = function() {
   // set content heights
 
   Meteor.pitch.setContentHeight();
@@ -349,7 +358,7 @@ Template.gigRow.rendered = function () {
   // match height of headers across row
   var headers = this.findAll('h3'),
     max = _(headers)
-    .max(function (el) {
+    .max(function(el) {
       return $(el)
         .height();
     }),
@@ -357,7 +366,7 @@ Template.gigRow.rendered = function () {
     .height();
 
   _(headers)
-    .each(function (el) {
+    .each(function(el) {
       $(el)
         .height(height);
     });
@@ -365,7 +374,7 @@ Template.gigRow.rendered = function () {
 };
 
 Template.gig.events({
-  'click .tech': function (evt) {
+  'click .tech': function(evt) {
     //evt.preventDefault( );
     Meteor.db.states.update(this.stateId, {
       $set: {
@@ -374,7 +383,7 @@ Template.gig.events({
     });
     Meteor.pitch.setActive(evt, 'gigs');
   },
-  'click .lessons': function (evt) {
+  'click .lessons': function(evt) {
     //evt.preventDefault( );
     Meteor.db.states.update(this.stateId, {
       $set: {
@@ -383,7 +392,7 @@ Template.gig.events({
     });
     Meteor.pitch.setActive(evt, 'gigs');
   },
-  'click .description': function (evt) {
+  'click .description': function(evt) {
     //evt.preventDefault( );
     Meteor.db.states.update(this.stateId, {
       $set: {
@@ -392,41 +401,41 @@ Template.gig.events({
     });
     Meteor.pitch.setActive(evt, 'gigs');
   },
-  'click h3': function (evt) {
+  'click h3': function(evt) {
     Meteor.pitch.setActive(evt, 'gigs');
   }
 });
 
 
-Template.education.education = function () {
+Template.education.education = function() {
   var education = Meteor.db.education.findOne({
     'default': true
   });
   return education;
 }
 
-Template.education.rendered = function () {
+Template.education.rendered = function() {
   Meteor.pitch.refreshState();
 }
 
-Template.connected.connected = function () {
+Template.connected.connected = function() {
   return _(Connected.find({})
       .fetch())
     .chain()
-    .uniq(function (conn) {
+    .uniq(function(conn) {
       return conn.user;
     })
-    .map(function (conn) {
+    .map(function(conn) {
       return Meteor.users.findOne(conn.user);
     })
     .value();
 }
 
-Template.connected.isOpen = function () {
+Template.connected.isOpen = function() {
   return Session.get('connectedOpen');
 }
 
-Template.connected.rendered = function () {
+Template.connected.rendered = function() {
   var btn = $(this.find('.connected')),
     list = $(this.find('ul')),
     headerHeight = $('.header')
@@ -444,14 +453,14 @@ Template.connected.rendered = function () {
 };
 
 Template.connected.events({
-  'click .connected-btn': function (evt) {
+  'click .connected-btn': function(evt) {
     evt.preventDefault();
     evt.stopPropagation();
     Session.set('connectedOpen', !Session.get('connectedOpen'));
   }
 });
 
-Template.header.isMobile = function () {
+Template.header.isMobile = function() {
   var columns = Session.get('numColumns');
   if (columns === 1) {
     return true;
@@ -459,7 +468,7 @@ Template.header.isMobile = function () {
   return false;
 }
 
-Template.header.brand = function () {
+Template.header.brand = function() {
   var numColumns = Session.get('numColumns');
   if (numColumns > 1) {
     return 'Danny Davidson';
@@ -469,7 +478,7 @@ Template.header.brand = function () {
 
 Template.header.events({
 
-  'click h1': function (evt) {
+  'click h1': function(evt) {
     evt.preventDefault();
 
     var state = Meteor.db.session.findOne({
@@ -479,7 +488,7 @@ Template.header.events({
   }
 });
 
-Template.nav.sections = function () {
+Template.nav.sections = function() {
   var sections,
     session = Meteor.db.session.findOne({
       key: Session.get('session')
@@ -510,15 +519,15 @@ Template.nav.sections = function () {
   return [{
     key: 'loading',
     title: 'Loading'
- }];
+  }];
 
 }
 
-Template.nav.isOpen = function () {
+Template.nav.isOpen = function() {
   return Session.get('navOpen');
 }
 
-Template.nav.rendered = function () {
+Template.nav.rendered = function() {
   var btn = $(this.find('h2')),
     menu = $(this.find('ul')),
     headerHeight = $('.header')
@@ -537,12 +546,12 @@ Template.nav.rendered = function () {
 
 Template.nav.events({
 
-  'click h2': function (evt) {
+  'click h2': function(evt) {
     evt.preventDefault();
     evt.stopImmediatePropagation();
     Session.set('navOpen', !Session.get('navOpen'));
   },
-  'click li': function (evt) {
+  'click li': function(evt) {
     var key = $(evt.currentTarget)
       .data('key'),
       first = _(Meteor.db[key].find({})
@@ -566,20 +575,20 @@ Template.nav.events({
 });
 
 Template.education.events({
-  'click .school, tap .school': function (evt) {
+  'click .school, tap .school': function(evt) {
     evt.preventDefault();
     Meteor.pitch.setActive(evt, 'education');
   }
 });
 
-Template.objective.objective = function () {
+Template.objective.objective = function() {
   var objective = Meteor.db.objective.findOne({
     session: Session.get('session')
   });
   return objective;
 }
 
-Template.objective.rendered = function () {
+Template.objective.rendered = function() {
   $(window)
     .unbind('keyup');
   Meteor.pitch.setContentHeight();
@@ -587,16 +596,16 @@ Template.objective.rendered = function () {
 };
 
 Template.objective.events({
-  'click h2': function (evt) {
+  'click h2': function(evt) {
     evt.preventDefault();
     Meteor.pitch.setActive(evt, 'objective');
   },
-  'blur h2': function (evt) {
+  'blur h2': function(evt) {
     Meteor.pitch.updateObjective(evt);
   },
-  'focus h2': function (evt) {
+  'focus h2': function(evt) {
     $(window)
-      .keyup(function (keyEvt) {
+      .keyup(function(keyEvt) {
         if (_([27, 13])
           .contains(keyEvt.which)) {
           evt.currentTarget = $('.objective h2')[0];
